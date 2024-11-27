@@ -1,9 +1,9 @@
 {
-  "name":"HANS-MD",
-  "description":"Best whatsapp bot created by HANSTECH",
+  "name":"LUCKY-MD",
+  "description":"Best whatsapp bot created by FREDIEZRA",
   "keywords":["bot","node","baileys","whatsapp"],
-  "logo":"https://files.catbox.moe/l1i9o4.jpg",
-  "repository":"https://github.com/Mrhannstz/HANS-MD",
+  "logo":"https://files.catbox.moe/qh500b.jpg",
+  "repository":"https://github.com/Fred1e/LUCKY_MD",
   "succes_url":"/",
   "stack":"container",
   "env":{
@@ -47,14 +47,14 @@
     "BOT_NAME" : {
        
       "description":"put A name for your bot",
-      "value":"HANS-MD",
+      "value":"LUCKY_MD",
       "required":false
 
     } ,
      "BOT_MENU_LINKS" : {
     
       "description":"add one or many link for your bot menu  ; eg : url1,url2,url3.....",
-      "value":"https://files.catbox.moe/l1i9o4.jpg",
+      "value":"https://files.catbox.moe/g73xvl.jpeg",
       "required":false
        
      },
@@ -86,41 +86,41 @@
     
     "desc": "Your Name",
     "required": false,
-    "value": "HANSTZ"
+    "value": "fredietech"
   },
     "NUMERO_OWNER":
   {
     
     "desc": "Your number , dont put '+' and put you area code(exemple of togo '228')",
     "required":false,
-    "value": "255760774888"
+    "value": "255752593977"
   },
     "WARN_COUNT":
   {
     "desc": "this is the limit of warn for warning commandes",
     "required": false,
-    "value": "3"
+    "value": "5"
   },
   "STARTING_BOT_MESSAGE":
   {
     "description": "if you don't want startting-bot-message put no else put yes",
     "required": true,
-    "value": "yes"
+    "value": "no"
   },
   "PRESENCE":{
     "description":"Mark your presence: 1 to indicate that you are online even if you are not. 2 to indicate that you are currently typing a message. 3 to indicate that you are currently recording an audio. Or leave the field blank to indicate your real state.",
-    "value":"",
+    "value":"2",
     "required": false
 	  
   },
 	    "AUTO_READ":{
     "description":"Enter yes for auto read messages.",
-    "value":"",
+    "value":"no",
     "required": false
     },
   "ANTI_DELETE_MESSAGE" : {
     "description": "if you want to enable anti delete message put yes else put no",
-    "value": "yes",
+    "value": "no",
         "required": false
   }
   },
