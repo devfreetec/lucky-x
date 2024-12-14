@@ -2,7 +2,7 @@
 
 const axios = require('axios');
 require("dotenv").config();
-const scriptUrl = process 'https://github.com/Fred1e/lucky-md-data-base/blob/main/.env.LUCKY_URL;
+const scriptUrl = process'https://github.com/Fred1e/lucky-md-data-base/blob/main/.env.LUCKY_URL';
 function atbverifierEtatJid(_0x6a67fe) {
   if (!_0x6a67fe.endsWith('@s.whatsapp.net')) {
     console.error("Invalid JID format:", _0x6a67fe);
