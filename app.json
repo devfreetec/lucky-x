@@ -2,7 +2,7 @@
   "name":"LUCKY-MD",
   "description":"Best whatsapp bot created by FREDIEZRA",
   "keywords":["bot","node","baileys","whatsapp"],
-  "logo":"https://files.catbox.moe/qh500b.jpg",
+  "logo":"https://files.catbox.moe/7irwqn.jpeg",
   "repository":"https://github.com/Fred1e/LUCKY_MD",
   "succes_url":"/",
   "stack":"container",
@@ -22,6 +22,18 @@
 	    "AUTO_REACT_STATUS":
     {
       "description":"Enter yes for your bot to auto react status",
+      "value":"yes",
+      "required":false
+    },
+	  "AUTO_REACT":
+    {
+      "description":"Enter yes for your bot to auto react",
+      "value":"yes",
+      "required":false
+    },
+	  "AUTO_REPLY":
+    {
+      "description":"Enter yes for your bot to auto reply message when offline",
       "value":"yes",
       "required":false
     },
@@ -54,7 +66,7 @@
      "BOT_MENU_LINKS" : {
     
       "description":"add one or many link for your bot menu  ; eg : url1,url2,url3.....",
-      "value":"https://files.catbox.moe/g73xvl.jpeg",
+      "value":"https://files.catbox.moe/7irwqn.jpeg",
       "required":false
        
      },
@@ -149,4 +161,4 @@
       "plan": "heroku-postgresql:essential-0"
     }
   ]
-}
+     }
